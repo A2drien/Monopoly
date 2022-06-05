@@ -4,9 +4,9 @@ using System.Text;
 
 namespace Monopoly
 {
-    public interface ICase {
-
-        public void GetEvenement(IJoueur j);
+    public interface IJoueur
+    {
+        public void Acheter(IPropriete p);
         public string ToString();
     }
 }

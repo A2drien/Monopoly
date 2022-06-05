@@ -1,8 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using System.Diagnostics.Contracts;
+using Monopoly;
 
-namespace Monopoly
+namespace Propriete
 {
     public class Terrain : Propriete
     {
@@ -14,32 +16,27 @@ namespace Monopoly
             this.niveau = 0;
         }
 
-        // Indique si la propriété peut monter de niveau
-        public bool PeutMonterNiveau()
-        {
-            return 0 <= this.niveau && this.niveau < NIVEAU_MAX;
-        }
+        public override bool PeutMonterNiveau() => 0 <= this.niveau && this.niveau < NIVEAU_MAX;
 
-
-        // Fait monter de niveau la propriété
         public void MonterNiveau()
         {
+            Contract.Ensures(this.niveau < NIVEAU_MAX);
             this.niveau++;
         }
 
-        public override void GetEvenement(Joueur j)
+        public void BaisserNiveau()
+        {
+            Contract.Ensures(0 < this.niveau);
+            this.niveau--;
+        }
+
+        public override void GetEvenement(IJoueur j)
         {
             throw new NotImplementedException();
         }
 
-        public override bool Vendable()
-        {
-            return niveau == 0;
-        }
+        public override bool Vendable() => niveau == 0;
 
-        public int Loyer()
-        {
-            return (this.niveau * this.coeffNiveauLoyer + 1) * this.loyerBase;
-        }
+        public override int Loyer() => (this.niveau * this.coeffNiveauLoyer + 1) * this.loyerBase;
     }
 }

@@ -1,14 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
-
-namespace Monopoly
+using Monopoly;
+namespace Propriete
 {
-    public abstract class Propriete : ICase
+    public abstract class Propriete : IPropriete
     {
         private readonly TypePropriete type;
-        public readonly int prixAchat;
-        private Joueur proprietaire;
+        private readonly int prixAchat;
+        private IJoueur proprietaire;
         private protected readonly int loyerBase;
         private protected readonly int coeffNiveauLoyer;
         private bool estHypotequee;
@@ -24,21 +24,17 @@ namespace Monopoly
             this.estHypotequee = false;
         }
 
-        public void Achat(Joueur j)
+        public void Achat(IJoueur j)
         {
             this.proprietaire = j;
         }
 
-        // Indique le prix du loyer actuel
-
-        // Indique si la propriété est achetable
-        public bool Achetable()
-        {
-            return this.proprietaire == null;
-        }
-
+        public bool Achetable() => this.proprietaire == null;
         public abstract bool Vendable();
-
-        public abstract void GetEvenement(Joueur j);
+        public abstract int Loyer();
+        public abstract void GetEvenement(IJoueur j);
+        public abstract bool PeutMonterNiveau();
+        public bool EstPossedePar(IJoueur j) => this.proprietaire == j;
+        public int GetPrixAchat() => this.prixAchat;
     }
 }

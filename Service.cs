@@ -1,8 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
-
-namespace Monopoly
+using Monopoly;
+namespace Propriete
 {
     public class Service : Propriete
     {
@@ -11,14 +11,13 @@ namespace Monopoly
 
         }
 
-        public override void GetEvenement(Joueur j)
+        public override void GetEvenement(IJoueur j)
         {
             throw new NotImplementedException();
         }
 
-        public override bool Vendable()
-        {
-            return true;
-        }
+        public override int Loyer() => throw new NotImplementedException();
+        public override bool PeutMonterNiveau() => false;
+        public override bool Vendable() => true;
     }
 }
